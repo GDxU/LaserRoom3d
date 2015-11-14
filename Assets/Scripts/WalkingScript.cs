@@ -29,14 +29,17 @@ public class WalkingScript : MonoBehaviour {
 	}
 	void TrackGrounded(Collision col)
 	{
-		float minimumHeight=theCapsule.bounds.min.y + theCapsule.radius*0.293F;
+		//float minimumHeight=theCapsule.bounds.min.y + theCapsule.radius*0.293F;
+        float minimumHeight = theCapsule.radius * 0.293F - 1;
 		//获取角色脚的高度为胶囊体的底面加上半径的1-2分之根号2倍
+        //1为中心到底边的高度
+        //多重力下为相对高度
 		//这样角色可以在不陡于45度的坡上跳
 		foreach (ContactPoint c in col.contacts)
 		{
 			//若有比脚低的接触点
-			if (c.point.y < minimumHeight) 
-			{
+			if (transform.InverseTransformPoint(c.point).y < minimumHeight)
+            {
 				//we track velocity for rigidbodies we're standing on
 				//if (col.rigidbody) groundVelocity = col.rigidbody.velocity;
 				//and become children of non-rigidbody colliders
@@ -71,25 +74,28 @@ public class WalkingScript : MonoBehaviour {
 		//目标速度为方向键输入
 		targetVelocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 		//让目标速度方向和角色坐标系相同，速度根据跑步和下蹲
-		targetVelocity = (crouched ? crouchSpeed :(canRun ? (Input.GetKey(KeyCode.LeftShift)? runSpeed : inputSpeed) : inputSpeed))*transform.TransformDirection(targetVelocity);
+        targetVelocity *= (crouched ? crouchSpeed : (canRun ? (Input.GetKey(KeyCode.LeftShift) ? runSpeed : inputSpeed) : inputSpeed));
 		//获取当前速度，计算应有的速度改变
-		nowVelocity = GetComponent<Rigidbody>().velocity;
-		changeVelocity = targetVelocity - nowVelocity;
+        nowVelocity = transform.InverseTransformDirection(GetComponent<Rigidbody>().velocity);
+        changeVelocity = targetVelocity - nowVelocity;
 		//改变过大时受最大加速度控制
 		changeVelocity.x = Mathf.Clamp (changeVelocity.x, -maxAcceleration, maxAcceleration);
 		changeVelocity.z = Mathf.Clamp (changeVelocity.z, -maxAcceleration, maxAcceleration);
 		changeVelocity.y = 0;
 		//速度改变乘上定值10施加为物体的加速度，10由手感决定
 		if (!freezeMoving)
-			GetComponent<Rigidbody>().AddForce(changeVelocity*10,ForceMode.Acceleration);
+			GetComponent<Rigidbody>().AddForce(transform.TransformDirection(changeVelocity*10),ForceMode.Acceleration);
 		//如果着地，允许跳
 		if(grounded && canJump && !crouched)
 		{
 			if (Input.GetButton("Jump"))
 			{
-				//由运动学公式v^2=2gh推出需要的速度
-				GetComponent<Rigidbody>().velocity=new Vector3(nowVelocity.x,Mathf.Sqrt(2 * inputJumpHeight * -Physics.gravity.y),nowVelocity.z);
-			}
+				//由运动学公式v^2=2gh推出需要的速度 bug
+
+                //GetComponent<Rigidbody>().velocity = nowVelocity - Level.playerGravityDir * Mathf.Sqrt(2 * inputJumpHeight * -Physics.gravity.y);
+                //更改公式，适应多重力场
+                GetComponent<Rigidbody>().velocity = transform.TransformDirection(new Vector3(nowVelocity.x, Mathf.Sqrt(2 * inputJumpHeight * -Physics.gravity.y), nowVelocity.z));
+            }
 			grounded=false;
 		}
 	}

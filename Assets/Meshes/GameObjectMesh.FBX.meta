@@ -24,6 +24,8 @@ ModelImporter:
     100036: TP_Mirror90_MF 1
     100038: TP_Mirror225_MF
     100040: TP_Mirror45_Shell001
+    100042: TP_GravityShift_MF
+    100044: TP_GravityShift_Shell
     400000: //RootNode
     400002: TG_Mirror90
     400004: TG_Receiver
@@ -45,6 +47,8 @@ ModelImporter:
     400036: TP_Mirror90_MF 1
     400038: TP_Mirror225_MF
     400040: TP_Mirror45_Shell001
+    400042: TP_GravityShift_MF
+    400044: TP_GravityShift_Shell
     2300000: TP_Box
     2300002: TP_BoxShell
     2300004: TP_Emitter
@@ -63,6 +67,8 @@ ModelImporter:
     2300030: TP_Mirror90_MF 1
     2300032: TP_Mirror225_MF
     2300034: TP_Mirror45_Shell001
+    2300036: TP_GravityShift_MF
+    2300038: TP_GravityShift_Shell
     3300000: TP_Box
     3300002: TP_BoxShell
     3300004: TP_Emitter
@@ -81,6 +87,8 @@ ModelImporter:
     3300030: TP_Mirror90_MF 1
     3300032: TP_Mirror225_MF
     3300034: TP_Mirror45_Shell001
+    3300036: TP_GravityShift_MF
+    3300038: TP_GravityShift_Shell
     4300000: TP_Box
     4300002: TP_Grating
     4300004: TP_BoxShell
@@ -99,6 +107,8 @@ ModelImporter:
     4300030: TP_Mirror90_MF
     4300032: TP_Mirror225_MF
     4300034: TP_Mirror45_Shell001
+    4300036: TP_GravityShift_MF
+    4300038: TP_GravityShift_Shell
     6400000: TP_Box
     6400002: TP_BoxShell
     6400004: TP_Emitter
@@ -117,6 +127,8 @@ ModelImporter:
     6400030: TP_Box1
     6400032: TP_Box3
     6400034: TP_Mirror45_Shell001
+    6400036: TP_GravityShift_MF
+    6400038: TP_GravityShift_Shell
     9500000: //RootNode
   materials:
     importMaterials: 1

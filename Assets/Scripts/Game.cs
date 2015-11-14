@@ -6,7 +6,7 @@ public static class Game
 	//public GameObject endObject;
     public static GameObject linePrefab;
 	public static GameObject gratingPlanePrefab;
-	//public GameObject playerPrefab;
+	public static Transform player;
     public static GUIText debugText;
 	public static GUIText crosshair;
 	//public AudioClip soundDoorMoving,soundDoorOpen,soundDoorClose;
