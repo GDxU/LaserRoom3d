@@ -9,7 +9,9 @@ public static class Gameplay
     //保存上一次非临时重力场
     public static Vector3 saveGravityDir;
     //当前是否进入临时重力场
-    public static bool isTemperaryGravity;
+    public static bool isTemporaryGravity;
     //临时重力场进入时间
-    public static float TemperaryGravityEntryTime;
+    public static float TemporaryGravityEntryTime;
+    //临时重力场最后一次维持时间
+    public static float TemporaryGravityKeepTime;
 }
