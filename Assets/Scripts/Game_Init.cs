@@ -10,6 +10,7 @@ public class Game_Init : MonoBehaviour {
     public GameObject gratingPlanePrefab;
     public GUIText crosshair;
     public GUIText debugText;
+    public LineRenderer debugLine;
 
 	// Use this for initialization
 	void Awake () {
