@@ -51,13 +51,14 @@ public class PH_Light_Script : MonoBehaviour {
 			Vector3 normalDir;
             //检测到无穷远处
             bool lightReflected = true;
-            if (Physics.Raycast(theRay, out theOutRay, Mathf.Infinity, ~((1 << 9) | (1 << 2))))
+            if (Physics.Raycast(theRay, out theOutRay, Mathf.Infinity, ~((1 << 9) | (1 << 2)| (1 << 26))))
 			{
 				linePos=theOutRay.point;
 				normalDir=theOutRay.normal;
 				switch(theOutRay.collider.gameObject.layer)
                 {
                 case 10://"Mirror":
+                case 27://"Wall_Reflective":
 					CreatePos (linePos-lineDir*0.001F);
 					CreatePos (linePos);
 					lineDir=Vector3.Reflect(lineDir,normalDir);
