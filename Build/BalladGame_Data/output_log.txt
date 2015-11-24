@@ -1,0 +1,24 @@
+Initialize engine version: 5.0.0f4 (5b98b70ebeb9)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GT 730M      (ID=0x1290)
+    Vendor:   NVIDIA
+    VRAM:     949 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\jjy\Documents\2jjy\Programming\3D\Unity\BalladGame\Build\BalladGame_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\jjy\Documents\2jjy\Programming\3D\Unity\BalladGame\Build\BalladGame_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\jjy\Documents\2jjy\Programming\3D\Unity\BalladGame\Build\BalladGame_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading C:\Users\jjy\Documents\2jjy\Programming\3D\Unity\BalladGame\Build\BalladGame_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\jjy\Documents\2jjy\Programming\3D\Unity\BalladGame\Build\BalladGame_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\jjy\Documents\2jjy\Programming\3D\Unity\BalladGame\Build\BalladGame_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\jjy\Documents\2jjy\Programming\3D\Unity\BalladGame\Build\BalladGame_Data\Managed\Assembly-UnityScript-firstpass.dll (this message is harmless)
+Loading C:\Users\jjy\Documents\2jjy\Programming\3D\Unity\BalladGame\Build\BalladGame_Data\Managed\Assembly-UnityScript-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\jjy\Documents\2jjy\Programming\3D\Unity\BalladGame\Build\BalladGame_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\jjy\Documents\2jjy\Programming\3D\Unity\BalladGame\Build\BalladGame_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+- Completed reload, in  0.101 seconds
+desktop: 1366x768 59Hz; virtual: 1366x768 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+Platform assembly: C:\Users\jjy\Documents\2jjy\Programming\3D\Unity\BalladGame\Build\BalladGame_Data\Managed\System.Core.dll (this message is harmless)

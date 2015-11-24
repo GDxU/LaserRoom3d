@@ -45,7 +45,6 @@ public static class Game
         gratingPlanePrefab = init.gratingPlanePrefab;
         crosshair = init.crosshair;
         debugText = init.debugText;
-        Game.CursorLocker = true;
         debugLine = init.debugLine;
     }
 }

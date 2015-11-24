@@ -54,6 +54,7 @@ public class Character_WalkingScript : MonoBehaviour
             {
                 //若时间太短容易误判 0.5s依据手感确定
                 if (Time.time - Gameplay.TemporaryGravityEntryTime < 0.5f) continue;
+                //Debug.Log(Vector3.Angle(-c.normal, Gameplay.playerGravityDir).ToString());
                 if(Vector3.Angle(-c.normal,Gameplay.playerGravityDir)<=50f)
                 {
                     if (Mathf.Abs(c.normal.x) + Mathf.Abs(c.normal.y) + Mathf.Abs(c.normal.z) <= 1.001f)//保证表面水平或垂直

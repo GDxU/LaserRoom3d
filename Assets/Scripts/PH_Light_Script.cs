@@ -51,7 +51,7 @@ public class PH_Light_Script : MonoBehaviour {
 			Vector3 normalDir;
             //检测到无穷远处
             bool lightReflected = true;
-            if (Physics.Raycast(theRay, out theOutRay, Mathf.Infinity, ~((1 << 9) | (1 << 2)| (1 << 26))))
+            if (Physics.Raycast(theRay, out theOutRay, Mathf.Infinity, ~((3 << 8) | (1 << 2) | (1 << 26) | (1 << 22))))//Ignore Light Stuff
 			{
 				linePos=theOutRay.point;
 				normalDir=theOutRay.normal;

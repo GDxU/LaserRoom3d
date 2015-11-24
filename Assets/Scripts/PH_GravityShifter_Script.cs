@@ -4,10 +4,14 @@ using System.Collections;
 public class PH_GravityShifter_Script : MonoBehaviour {
 
     Vector3 normal;
-	// Use this for initialization
-	void Start () {
+    public void RecalculateNormal()
+    {
         //根据模型坐标位置计算表面法线
         normal = Vector3.Normalize(transform.up - transform.right);
+    }
+	// Use this for initialization
+	void Start () {
+        RecalculateNormal();
 	}
 	void OnCollisionEnter(Collision collision)
     {

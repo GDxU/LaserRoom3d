@@ -29,11 +29,13 @@ public class Character_PickAndDrag : MonoBehaviour
 	float iniDrag;
 	bool startGrabbing;
     bool canPlace;
-	
+    bool pointToFixHolder;
 
     Transform gravityDirSign;
     bool gravityDirSignShowing;
     private LineRenderer DebugLine;
+
+
 
 	// Use this for initialization
 	void Start () {
@@ -54,6 +56,19 @@ public class Character_PickAndDrag : MonoBehaviour
         gravityDirSign.position = obj.position;
         gravityDirSign.LookAt(obj.position + gravityDir);
     }
+    Vector3 GetPHGravity(Rigidbody theBody)
+    {
+        if (theBody.useGravity == true) return Vector3.Normalize(Physics.gravity);
+        else
+        {
+            PH_GravityManager gravityManager = theBody.GetComponent<PH_GravityManager>();
+            if (gravityManager != null)
+            {
+                return gravityManager.PHGravityDir;
+            }
+            else return Vector3.zero;
+        }
+    }
 	// Update is called once per frame
 	void Update () {
         Game.debugText.text = "";
@@ -65,21 +80,11 @@ public class Character_PickAndDrag : MonoBehaviour
 		if(canDrag)
 		{
             Rigidbody theBody = thit.collider.GetComponent<Rigidbody>();
-            if (theBody == null || theBody.isKinematic) canDrag = false;
+            if (theBody == null || (theBody.isKinematic&&theBody.tag!="FixedPHBox")) canDrag = false;
             else if(Gameplay.isTemporaryGravity)canDrag=false;//临时重力下别捡东西
             else
             {
-                Vector3 PHGravity;
-                if (theBody.useGravity == true) PHGravity = Vector3.Normalize(Physics.gravity);
-                else
-                {
-                    PH_GravityManager gravityManager = theBody.GetComponent<PH_GravityManager>();
-                    if (gravityManager != null)
-                    {
-                        PHGravity = gravityManager.PHGravityDir;
-                    }
-                    else PHGravity = Vector3.zero;
-                }
+                Vector3 PHGravity = GetPHGravity(theBody);
                 if(Vector3.Magnitude(Gameplay.playerGravityDir-PHGravity)>1e-3f)//角色与物体的重力方向不同
                 {
                     canDrag = false;//不能捡东西
@@ -114,11 +119,13 @@ public class Character_PickAndDrag : MonoBehaviour
 		}
 		if(Input.GetMouseButtonDown(0) && !isGrabbing)
 		{
+            Game.CursorLocker = true;
 			//Screen.lockCursor=true;
 			if(canDrag)
 			{
 				theSpring=gameObject.AddComponent<SpringJoint>();
-				theSpring.anchor=anchorPos;
+                theSpring.anchor = anchorPos;
+                thit.collider.GetComponent<Rigidbody>().isKinematic = false;
 				theSpring.connectedBody=thit.collider.GetComponent<Rigidbody>();
 				theSpring.connectedAnchor=thit.point;
 				theSpring.spring=springSpring;
@@ -139,19 +146,20 @@ public class Character_PickAndDrag : MonoBehaviour
 
 		}*/
 		if(Input.GetMouseButtonUp(0) && isDraging)
-		{
+        {
 			Destroy(theSpring);
 			//main.debugText.text="";
 			isDraging=false;
 		}
 		
 		if (!isDraging && !isGrabbing && Input.GetMouseButtonDown(1))
-		{
-			//Screen.lockCursor=true;
+        {
+            Game.CursorLocker = true;
 			if (canDrag)
 			{
 				isGrabbing = true;
 				transformGrabbed = thit.transform;
+                transformGrabbed.GetComponent<Rigidbody>().isKinematic = false;
 				//transformGrabbed.GetComponent<Rigidbody>().useGravity = false;
                 transformGrabbed.GetComponent<ConstantForce>().enabled = false;
 				//建立一个物体，让这个物体随着cam改变自己角度，以便把角度传给拿起的物体
@@ -162,6 +170,11 @@ public class Character_PickAndDrag : MonoBehaviour
 				transformGrabbed.GetComponent<Rigidbody>().drag = grabDrag;//加一个阻力让它能够快速停下来,数值？做实验吧……
 				startGrabbing = true;
 				Game.crosshair.color = Color.yellow;
+                if (transformGrabbed.gameObject.layer == 8)//TP_Box Layer
+                {
+                    transformGrabbed.gameObject.layer = 2;//改变成透明，防止干扰
+                }
+                
 			}
 		}
         canPlace = false;
@@ -176,7 +189,9 @@ public class Character_PickAndDrag : MonoBehaviour
 			if (Input.GetMouseButton(0))
 			{
                 this.gameObject.GetComponent<Character_WalkingScript>().freezeMoving = true;
-				rotationDetector.transform.RotateAround(rotationDetector.transform.position, Vector3.up, -rotationSensitivity * Input.GetAxis("Horizontal"));
+                //三种旋转方式
+                //由于重力可以改变，因此绕transform.up转
+				rotationDetector.transform.RotateAround(rotationDetector.transform.position, transform.up, -rotationSensitivity * Input.GetAxis("Horizontal"));
 				rotationDetector.transform.RotateAround(rotationDetector.transform.position, cam.transform.right, rotationSensitivity * Input.GetAxis("Vertical"));
 				rotationDetector.transform.RotateAround(rotationDetector.transform.position, cam.transform.forward, rotationSensitivity * ((Input.GetKey (KeyCode.Q)?1:0)-(Input.GetKey (KeyCode.E)?1:0)));
 			}
@@ -191,16 +206,30 @@ public class Character_PickAndDrag : MonoBehaviour
 		if (startGrabbing)
 			startGrabbing = false;
 		else if (isGrabbing && (Input.GetMouseButtonDown(1) || Vector3.Distance (transformGrabbed.position, cam.transform.position)>20))
-		{
+        {
+            Game.CursorLocker = true;
             ReleaseGrabbed(Input.GetMouseButton(0));
 		}
 		
 		//main.debugText.text = isGrabbing.ToString ();
 		
 	}
+    public void ForceReleaseGrabbed(bool throwing)
+    {
+        if(isGrabbing)
+        {
+            canPlace = false;
+            ReleaseGrabbed(throwing);
+        }
+        if (isDraging)
+        {
+            Destroy(theSpring);
+            isDraging = false;
+        }
+    }
     void ReleaseGrabbed(bool throwing)
     {
-        if (canPlace)
+        if (canPlace&&!throwing)
         {
             PlaceGrabbed(transformGrabbed);
         }
@@ -220,31 +249,49 @@ public class Character_PickAndDrag : MonoBehaviour
             }
         }
         this.gameObject.GetComponent<Character_WalkingScript>().freezeMoving = false;
+        if (transformGrabbed.gameObject.layer==2)//如果改成了IgnoreRayCast
+        {
+            transformGrabbed.gameObject.layer = 8;//更改回TP_Box
+        }
         transformGrabbed = null;
     }
     Vector3 hitPoint, hitNormal, centerPoint;
     Vector3 floorPoint, floorNormal;
-    float PhysicsEPS = 0.01f;
+    float PhysicsEPS = 0f;
     bool AgainstWallHint()
     {
         //Todo: Disable when collider between me and grabbed object.
         if(Gameplay.isTemporaryGravity)return false;
         Ray tray = cam.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0) + transform.forward * 10);
         RaycastHit thit;
-        bool isCollide = Physics.Raycast(tray, out thit, armLength,(7<<25));//25~27:Wall Layer
+        bool isCollide = Physics.Raycast(tray, out thit, armLength,(15<<24));//25~27:Wall Layer 24:FixHolder
         if (!isCollide) return false;
+        DebugLine.SetPosition(0, thit.point);
+        DebugLine.SetPosition(1, thit.normal+thit.point);
+        if(thit.transform.gameObject.layer==24)//FixHolder
+        {
+            pointToFixHolder = true;
+            floorPoint = thit.transform.position;
+            floorNormal = thit.transform.forward;
+            hitNormal = thit.transform.up;
+            return true;
+        }
         float angle = Vector3.Angle(thit.normal, Gameplay.playerGravityDir);
         if (angle < 88 || angle > 92) return false;
         hitPoint = thit.point;
         hitNormal = thit.normal;
+        //卡门不允许
+        if(Physics.Raycast(hitPoint,hitNormal,5f,(7<<25)))return false;
+
         centerPoint = hitPoint + hitNormal * (2.5f+PhysicsEPS);//放置中心点
-        isCollide = Physics.Raycast(centerPoint, Gameplay.playerGravityDir,out thit,6f, (7 << 25));
+        isCollide = Physics.Raycast(centerPoint, Gameplay.playerGravityDir, out thit, 6f, (7 << 25) | 1 << 8);//地面和TP_Box顶端
         floorPoint = thit.point;
         floorNormal = thit.normal;
         if (!isCollide) return false;
         if (Vector3.Angle(thit.normal, -Gameplay.playerGravityDir) > 5f) return false;
-        DebugLine.SetPosition(0, thit.point);
-        DebugLine.SetPosition(1, centerPoint);
+        //卡地不允许
+        if (Physics.Raycast(floorPoint, floorNormal, 5f, (7 << 25))) return false;
+        pointToFixHolder = false;
         return isCollide;
     }
     float TestPlaceRotation(Vector3 up, Vector3 forward, Vector3 exp_up, Vector3 exp_forward)
@@ -256,13 +303,12 @@ public class Character_PickAndDrag : MonoBehaviour
     void PlaceGrabbed(Transform grabbed)
     {
         Vector3 center = floorPoint + floorNormal * (2.5f+PhysicsEPS); 
-        grabbed.position = center;
         Vector3[] testDir=new Vector3[3];
         //目标up,forward,right
         testDir[0] = floorNormal;
         testDir[1] = hitNormal;
         testDir[2] = Vector3.Cross(testDir[0], testDir[1]);
-        Debug.Log(testDir[0].ToString());
+        //Debug.Log(testDir[0].ToString());
         float minTest=9e9f;
         int minAt=-1;
         //找出24种旋转方式中最接近某种目标的旋转方式后设置up和forward
@@ -276,10 +322,22 @@ public class Character_PickAndDrag : MonoBehaviour
                 minAt = i;
             }
         }
+        Rigidbody theBody=grabbed.GetComponent<Rigidbody>();
+        theBody.position = center;
+        //静止该物体
+        theBody.velocity = Vector3.zero;
         //grabbed.forward = ((minAt & 1) > 0 ? 1 : -1) * testDir[test_y[minAt >> 2]];
         //grabbed.up = ((minAt & 2) > 0 ? 1 : -1) * testDir[test_x[minAt >> 2]];
         //grabbed.right = Vector3.Cross(grabbed.up, grabbed.forward);
         //使用LookAt来设置forward和up，不然会爆炸
         grabbed.LookAt(grabbed.position + ((minAt & 1) > 0 ? 1 : -1) * testDir[test_y[minAt >> 2]], ((minAt & 2) > 0 ? 1 : -1) * testDir[test_x[minAt >> 2]]);
+        if(pointToFixHolder)
+        {
+            grabbed.transform.position = center;
+            Vector3 gravityDir = GetPHGravity(theBody);
+            if (Vector3.Angle(gravityDir,-floorNormal)<=31)
+                theBody.isKinematic = true;
+            grabbed.tag = "FixedPHBox";
+        }
     }
 }
