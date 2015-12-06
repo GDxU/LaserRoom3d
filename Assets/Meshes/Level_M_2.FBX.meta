@@ -13,6 +13,9 @@ ModelImporter:
     100010: Text005
     100012: Box003
     100014: Box004
+    100016: Dec_Paint_1
+    100018: Dec_Paint_2
+    100020: Dec_Paint_3
     400000: Door002
     400002: Door1
     400004: //RootNode
@@ -21,6 +24,9 @@ ModelImporter:
     400010: Text005
     400012: Box003
     400014: Box004
+    400016: Dec_Paint_1
+    400018: Dec_Paint_2
+    400020: Dec_Paint_3
     2300000: Door002
     2300002: Door1
     2300004: Text003
@@ -28,6 +34,9 @@ ModelImporter:
     2300008: Text005
     2300010: Box003
     2300012: Box004
+    2300014: Dec_Paint_1
+    2300016: Dec_Paint_2
+    2300018: Dec_Paint_3
     3300000: Door002
     3300002: Door1
     3300004: Text003
@@ -35,6 +44,9 @@ ModelImporter:
     3300008: Text005
     3300010: Box003
     3300012: Box004
+    3300014: Dec_Paint_1
+    3300016: Dec_Paint_2
+    3300018: Dec_Paint_3
     4300000: Text003
     4300002: Text004
     4300004: Text005
@@ -42,6 +54,9 @@ ModelImporter:
     4300008: Door002
     4300010: Box003
     4300012: Box004
+    4300014: Dec_Paint_1
+    4300016: Dec_Paint_3
+    4300018: Dec_Paint_2
     6400000: Door002
     6400002: Door1
     6400004: Text003
@@ -49,6 +64,9 @@ ModelImporter:
     6400008: Text005
     6400010: Box003
     6400012: Box004
+    6400014: Dec_Paint_1
+    6400016: Dec_Paint_2
+    6400018: Dec_Paint_3
     9500000: //RootNode
   materials:
     importMaterials: 1

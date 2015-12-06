@@ -7,7 +7,9 @@ public class Game_EndGame : MonoBehaviour {
 		if(col.tag=="Player")
 		{
 			Game.debugText.text="Congratulation!You've Finished.\nTime:"+(Time.time-Gameplay.startTime).ToString()+ " Sec";
-            Application.LoadLevel(Application.loadedLevel);
+            Game.CursorLocker = false;
+            Game.canvas.SendMessage("OnLevelEnd",-1);
+            
         }
 
 	}

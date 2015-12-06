@@ -9,6 +9,7 @@ public class Character_GravityManager : MonoBehaviour
     //使用恒力来模拟重力
     //因为游戏中会改变重力
     ConstantForce playerGravity;
+    float rotSpeed;
 	// Use this for initialization
 	void Start () {
         Game.player = transform;
@@ -32,6 +33,7 @@ public class Character_GravityManager : MonoBehaviour
                 grabbedObject.GetComponent<PH_GravityManager>().ChangeGravity(newDir);
             }
         }
+        rotSpeed = 0;
         //Game.debugLine.enabled = true;
         //Game.debugLine.SetPosition(0, transform.position);
         //Game.debugLine.SetPosition(1, transform.position + Vector3.Cross(oldDir, newDir)*10);
@@ -41,11 +43,14 @@ public class Character_GravityManager : MonoBehaviour
 	// Update is called once per frame
 	void Update () {
 
-        float rotAngle = Vector3.Angle(-transform.up, Gameplay.playerGravityDir);
-        float maxAngle = Time.deltaTime * 90;
-        if(rotAngle>=0.01f)
+        float rotAngle = -Vector3.Angle(-transform.up, Gameplay.playerGravityDir);
+        //float maxAngle = Time.deltaTime * 90;
+        if(Mathf.Abs(rotAngle)>=1e-3f)
         {
-            transform.Rotate(transform.InverseTransformDirection(Vector3.Cross(-transform.up, Gameplay.playerGravityDir)), Mathf.Clamp(rotAngle, -maxAngle, maxAngle));
+            float newrot = Mathf.SmoothDamp(rotAngle, 0, ref rotSpeed, 0.25f);
+            //最后那个弛豫时间，由手感决定
+            //Debug.Log(rotAngle);
+            transform.Rotate(transform.InverseTransformDirection(Vector3.Cross(-transform.up, Gameplay.playerGravityDir)),newrot-rotAngle /*Mathf.Clamp(rotAngle, -maxAngle, maxAngle)*/);
         }
         if (Gameplay.isTemporaryGravity)
         {
