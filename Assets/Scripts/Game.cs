@@ -8,9 +8,8 @@ public static class Game
 	public static GameObject gratingPlanePrefab;
 	public static Transform player;
     public static GUIText debugText;
-	public static GUIText crosshair;
+	//public static GUIText crosshair;
     public static LineRenderer debugLine;
-    public static Canvas canvas;
 	//public AudioClip soundDoorMoving,soundDoorOpen,soundDoorClose;
     
 	//public GameObject menu_main,menu_instructions,menu_ingame;
@@ -44,9 +43,8 @@ public static class Game
     {
         linePrefab = init.linePrefab;
         gratingPlanePrefab = init.gratingPlanePrefab;
-        crosshair = init.crosshair;
+        //crosshair = init.crosshair;
         debugText = init.debugText;
         debugLine = init.debugLine;
-        canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
     }
 }

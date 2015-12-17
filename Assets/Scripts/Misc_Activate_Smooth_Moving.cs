@@ -13,7 +13,7 @@ public class Misc_Activate_Smooth_Moving : MonoBehaviour
     public void On()
     {
         ++currenthold;
-        if (currenthold == thershold)
+        if (currenthold >= thershold)
         {
             on = true;
             activeTime = Time.time;
@@ -22,7 +22,7 @@ public class Misc_Activate_Smooth_Moving : MonoBehaviour
     public void Off()
     {
         --currenthold;
-        if (currenthold != thershold)
+        if (currenthold < thershold)
         {
             on = false;
             activeTime = Time.time;
@@ -33,6 +33,11 @@ public class Misc_Activate_Smooth_Moving : MonoBehaviour
         Transform start = transform.FindChild("MoveStart"), end = transform.FindChild("MoveEnd");
         startPosition = transform.position;
         endPosition = transform.position + (end.position - start.position);
+        if (currenthold >= thershold)
+        {
+            on = true;
+            activeTime = Time.time;
+        }
 	}
 	
 	// Update is called once per frame

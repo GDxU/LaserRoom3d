@@ -3,7 +3,6 @@ using System.Collections;
 
 public class PH_Receiver_Script : MonoBehaviour {
 	
-	//Main main;
 	public AudioClip soundActivation;
 	public GameObject attachedObject;
 	public bool isTurnOn;

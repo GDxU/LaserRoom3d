@@ -8,7 +8,9 @@ public class UI_AllLevel : MonoBehaviour
     public String[] LevelNames;
     public String[] LevelScenes;
     public Text changeText;
+    public Animator shaderAnim;
     Animator anim;
+    bool loadingLevel;
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -35,14 +37,20 @@ public class UI_AllLevel : MonoBehaviour
             if (LevelButtons[i] == button)
             {
                 DontDestroyOnLoad(gameObject);
+                loadingLevel = true;
                 Application.LoadLevel(LevelScenes[i]);
-                anim.SetTrigger("Shade");
+                anim.SetTrigger("LoadingLevel");
+                shaderAnim.SetTrigger("ShadeEnable");
                 return;
             }
         }
     }
     void OnLevelWasLoaded(int level)
     {
-        anim.SetTrigger("DoneLoadingLevel");
+        if (loadingLevel==true)
+        {
+            shaderAnim.SetTrigger("ShadeDisable");
+            loadingLevel = false;
+        }
     }
 }

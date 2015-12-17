@@ -10,9 +10,11 @@ public class Misc_Activate_Smooth_Moving_Rotating : MonoBehaviour {
         x,y,z
     };
     public RotateAxis Axis=RotateAxis.y;
+    public bool relativeRotate = false;
     public float degree = 90;
-    Vector3 startPosition, endPosition;
-    float currentSpeed, currentValue;
+
+    Vector3 startPosition, endPosition, calcAxis;
+    float currentSpeed, currentValue, lastValue;
     float activeTime;
     Quaternion originRotation;
     float rotateSpeed;
@@ -27,9 +29,37 @@ public class Misc_Activate_Smooth_Moving_Rotating : MonoBehaviour {
         on = false;
         activeTime = Time.time;
     }
+    void GetRelativeAxis()
+    {
+        if (Axis == RotateAxis.y)
+        {
+            calcAxis = transform.up;
+        }
+        else if (Axis == RotateAxis.x)
+        {
+            calcAxis = transform.right;
+        }
+        else if (Axis == RotateAxis.z)
+        {
+            calcAxis = transform.forward;
+        }
+
+    }
     // Use this for initialization
     void Start()
     {
+        if(Axis==RotateAxis.y)
+        {
+            calcAxis = Vector3.up;
+        }
+        else if (Axis == RotateAxis.x)
+        {
+            calcAxis =Vector3.right;
+        }
+        else if (Axis == RotateAxis.z)
+        {
+            calcAxis = Vector3.forward;
+        }
         Transform start = transform.FindChild("MoveStart"), end = transform.FindChild("MoveEnd");
         startPosition = transform.position;
         endPosition = transform.position + (end.position - start.position);
@@ -46,13 +76,23 @@ public class Misc_Activate_Smooth_Moving_Rotating : MonoBehaviour {
         {
             currentValue = Mathf.SmoothDamp(currentValue, on ? 1 : 0, ref currentSpeed, time);
             transform.position = Vector3.Lerp(startPosition, endPosition, currentValue);
-            transform.rotation = originRotation;
-            transform.Rotate(Vector3.up, currentValue * degree,Space.World);
+            if (relativeRotate)
+            {
+                //相对旋转
+                GetRelativeAxis();
+                transform.Rotate(calcAxis, (currentValue - lastValue) * degree, Space.World);
+            }
+            else
+            {
+                transform.rotation = originRotation;
+                transform.Rotate(calcAxis, currentValue * degree, Space.World);
+            }
             if(isShifter)
             {
                 //旋转后重新计算法线
                 shifter.RecalculateNormal();
             }
+            lastValue = currentValue;
         }
     }
 }
