@@ -75,4 +75,8 @@ public class UI_Gameplay : MonoBehaviour {
     {
         GameUI.youfinishText.text = "";
     }
+    public void AboutButton()
+    {
+        Application.OpenURL("https://git.oschina.net/instr3/BalladGame");
+    }
 }

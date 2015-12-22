@@ -41,7 +41,8 @@ public class Character_PickAndDrag : MonoBehaviour
     MouseLook mouselook_script1, mouselook_script2;
 
 	// Use this for initialization
-	void Start () {
+    void Start()
+    {
 		//加载Main
 		//GameObject level = GameObject.Find ("Level");
 		//main = level.GetComponent<Main> ();
@@ -155,7 +156,7 @@ public class Character_PickAndDrag : MonoBehaviour
 				transformRotation.rigidbody.AddTorque(-transform.rigidbody.angularVelocity.x, -maxAngularSpeed - transform.rigidbody.angularVelocity.y,-transform.rigidbody.angularVelocity.z,ForceMode.VelocityChange);
 
 		}*/
-		if(Input.GetMouseButtonUp(0) && isDraging)
+		if(!Input.GetMouseButton(0) && isDraging)
         {
 			Destroy(theSpring);
 			//main.debugText.text="";
@@ -207,8 +208,8 @@ public class Character_PickAndDrag : MonoBehaviour
                 mouselook_script2.enabled = false;
                 //三种旋转方式
                 //由于重力可以改变，因此绕transform.up转
-                rotationDetector.transform.RotateAround(rotationDetector.transform.position, transform.up, -(rotationSensitivity * Input.GetAxis("Horizontal") + Input.GetAxis("Mouse X")*mouseRotateSensitivity));
-                rotationDetector.transform.RotateAround(rotationDetector.transform.position, cam.transform.right, rotationSensitivity * Input.GetAxis("Vertical") + Input.GetAxis("Mouse Y") * mouseRotateSensitivity);
+                rotationDetector.transform.RotateAround(rotationDetector.transform.position, transform.up, -rotationSensitivity * Input.GetAxis("Horizontal") );
+                rotationDetector.transform.RotateAround(rotationDetector.transform.position, cam.transform.right, rotationSensitivity * Input.GetAxis("Vertical"));
                 rotationDetector.transform.RotateAround(rotationDetector.transform.position, cam.transform.forward, rotationSensitivity * ((Input.GetKey(KeyCode.Q) ? 1 : 0) - (Input.GetKey(KeyCode.E) ? 1 : 0)));
             }
             else
@@ -381,7 +382,21 @@ public class Character_PickAndDrag : MonoBehaviour
     }
     void Update()
     {
-        UpdateMouseButton0 = Input.GetMouseButtonDown(0);
-        UpdateMouseButton1 = Input.GetMouseButtonDown(1);
+        UpdateMouseButton0 = UpdateMouseButton0 | Input.GetMouseButtonDown(0);
+        UpdateMouseButton1 = UpdateMouseButton1 | Input.GetMouseButtonDown(1);
+        
+        if (isGrabbing)
+        {
+            if (Input.GetMouseButton(0))
+            {
+                //this.gameObject.GetComponent<Character_WalkingScript>().freezeMoving = true;
+                //mouselook_script1.enabled = false;
+                //mouselook_script2.enabled = false;
+                //三种旋转方式
+                //由于重力可以改变，因此绕transform.up转
+                rotationDetector.transform.RotateAround(rotationDetector.transform.position, transform.up, -(Input.GetAxis("Mouse X") * mouseRotateSensitivity));
+                rotationDetector.transform.RotateAround(rotationDetector.transform.position, cam.transform.right, Input.GetAxis("Mouse Y") * mouseRotateSensitivity);
+            }
+        }
     }
 }
