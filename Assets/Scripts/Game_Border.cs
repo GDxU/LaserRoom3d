@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Game_Border : MonoBehaviour {
-
+    
     void OnTriggerExit(Collider col)
     {
         if (col.tag == "Player")
