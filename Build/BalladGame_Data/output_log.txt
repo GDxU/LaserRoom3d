@@ -1,0 +1,83 @@
+Initialize engine version: 5.0.0f4 (5b98b70ebeb9)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GT 730M      (ID=0x1290)
+    Vendor:   NVIDIA
+    VRAM:     949 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\jjy\Documents\2jjy\Programming\3D\Unity\BalladGame\Build\BalladGame_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\jjy\Documents\2jjy\Programming\3D\Unity\BalladGame\Build\BalladGame_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\jjy\Documents\2jjy\Programming\3D\Unity\BalladGame\Build\BalladGame_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading C:\Users\jjy\Documents\2jjy\Programming\3D\Unity\BalladGame\Build\BalladGame_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\jjy\Documents\2jjy\Programming\3D\Unity\BalladGame\Build\BalladGame_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\jjy\Documents\2jjy\Programming\3D\Unity\BalladGame\Build\BalladGame_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\jjy\Documents\2jjy\Programming\3D\Unity\BalladGame\Build\BalladGame_Data\Managed\Assembly-UnityScript-firstpass.dll (this message is harmless)
+Loading C:\Users\jjy\Documents\2jjy\Programming\3D\Unity\BalladGame\Build\BalladGame_Data\Managed\Assembly-UnityScript-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\jjy\Documents\2jjy\Programming\3D\Unity\BalladGame\Build\BalladGame_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\jjy\Documents\2jjy\Programming\3D\Unity\BalladGame\Build\BalladGame_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+- Completed reload, in  0.087 seconds
+desktop: 1360x768 60Hz; virtual: 1360x768 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+Platform assembly: C:\Users\jjy\Documents\2jjy\Programming\3D\Unity\BalladGame\Build\BalladGame_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\jjy\Documents\2jjy\Programming\3D\Unity\BalladGame\Build\BalladGame_Data\Managed\System.dll (this message is harmless)
+Setting up 1 worker threads for Enlighten.
+  Thread -> id: 1b78 -> priority: 1 
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.474960 ms
+System memory in use before: 17.9 MB.
+System memory in use after: 18.0 MB.
+
+Unloading 4 unused Assets to reduce memory usage. Loaded Objects now: 1170.
+Total: 0.656520 ms (FindLiveObjects: 0.085648 ms CreateObjectMapping: 0.058396 ms MarkObjects: 0.498672 ms  DeleteObjects: 0.012387 ms)
+
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.644487 ms
+System memory in use before: 18.1 MB.
+System memory in use after: 17.6 MB.
+
+Unloading 75 unused Assets to reduce memory usage. Loaded Objects now: 533.
+Total: 0.737922 ms (FindLiveObjects: 0.063705 ms CreateObjectMapping: 0.019111 ms MarkObjects: 0.345779 ms  DeleteObjects: 0.307910 ms)
+
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.217306 ms
+System memory in use before: 17.9 MB.
+System memory in use after: 17.9 MB.
+
+Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 817.
+Total: 0.693328 ms (FindLiveObjects: 0.063705 ms CreateObjectMapping: 0.026190 ms MarkObjects: 0.554592 ms  DeleteObjects: 0.047425 ms)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.558839 ms
+System memory in use before: 17.7 MB.
+System memory in use after: 17.4 MB.
+
+Unloading 56 unused Assets to reduce memory usage. Loaded Objects now: 533.
+Total: 0.558131 ms (FindLiveObjects: 0.033976 ms CreateObjectMapping: 0.012741 ms MarkObjects: 0.279596 ms  DeleteObjects: 0.230755 ms)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.604140 ms
+System memory in use before: 18.2 MB.
+System memory in use after: 18.2 MB.
+
+Unloading 3 unused Assets to reduce memory usage. Loaded Objects now: 897.
+Total: 0.615820 ms (FindLiveObjects: 0.100513 ms CreateObjectMapping: 0.029021 ms MarkObjects: 0.472482 ms  DeleteObjects: 0.012033 ms)
+
+Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.525570 ms
+System memory in use before: 18.2 MB.
+System memory in use after: 17.8 MB.
+
+Unloading 85 unused Assets to reduce memory usage. Loaded Objects now: 533.
+Total: 0.698991 ms (FindLiveObjects: 0.041054 ms CreateObjectMapping: 0.017695 ms MarkObjects: 0.362413 ms  DeleteObjects: 0.277119 ms)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.236772 ms
+System memory in use before: 18.4 MB.
+System memory in use after: 18.4 MB.
+
+Unloading 3 unused Assets to reduce memory usage. Loaded Objects now: 1172.
+Total: 0.769775 ms (FindLiveObjects: 0.165988 ms CreateObjectMapping: 0.032206 ms MarkObjects: 0.556715 ms  DeleteObjects: 0.011679 ms)
+
